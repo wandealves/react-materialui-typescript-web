@@ -11,14 +11,20 @@ import {
   useTheme
 } from '@mui/material';
 import { Box } from '@mui/system';
+import { useDrawerContext } from '../../contexts';
 
 export const MenuLateral: React.FC = ({ children }) => {
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
+  const { isDrawerOpen, toggleDrawerOpen } = useDrawerContext();
 
   return (
     <>
-      <Drawer open={true} variant={smDown ? 'temporary' : 'permanent'}>
+      <Drawer
+        open={isDrawerOpen}
+        variant={smDown ? 'temporary' : 'permanent'}
+        onClose={toggleDrawerOpen}
+      >
         <Box
           width={theme.spacing(28)}
           height="100%"
