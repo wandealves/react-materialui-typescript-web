@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { IconButton, Typography, useTheme, useMediaQuery } from '@mui/material';
 import { Box } from '@mui/system';
 import { FaBars } from 'react-icons/fa';
@@ -8,14 +8,17 @@ import { useDrawerContext } from '../contexts';
 
 interface ILayoutBaseDePaginaProps {
   titulo: string;
+  barraDeFerramentas?: ReactNode;
 }
 
 export const LayoutBaseDePagina: React.FC<ILayoutBaseDePaginaProps> = ({
   children,
-  titulo
+  titulo,
+  barraDeFerramentas
 }) => {
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
+  const mdDown = useMediaQuery(theme.breakpoints.down('md'));
   const { toggleDrawerOpen } = useDrawerContext();
 
   return (
@@ -24,8 +27,8 @@ export const LayoutBaseDePagina: React.FC<ILayoutBaseDePaginaProps> = ({
         padding={1}
         display="flex"
         alignItems="center"
-        height={theme.spacing(12)}
         gap={1}
+        height={theme.spacing(smDown ? 8 : mdDown ? 8 : 12)}
       >
         {smDown && (
           <IconButton onClick={toggleDrawerOpen}>
@@ -33,12 +36,21 @@ export const LayoutBaseDePagina: React.FC<ILayoutBaseDePaginaProps> = ({
           </IconButton>
         )}
 
-        <Typography variant="h5">{titulo}</Typography>
+        <Typography
+          variant={smDown ? 'h5' : mdDown ? 'h4' : 'h3'}
+          overflow="hidden"
+          whiteSpace="nowrap"
+          textOverflow="ellipsis"
+        >
+          {titulo}
+        </Typography>
       </Box>
 
-      <Box>Barra de ferramentas</Box>
+      {barraDeFerramentas && <Box>{barraDeFerramentas}</Box>}
 
-      <Box>{children}</Box>
+      <Box flex={1} overflow="auto">
+        {children}
+      </Box>
     </Box>
   );
 };
