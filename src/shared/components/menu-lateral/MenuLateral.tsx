@@ -12,8 +12,9 @@ import {
   useTheme
 } from '@mui/material';
 import { Box } from '@mui/system';
+import {BsFillMoonStarsFill} from 'react-icons/bs';
 
-import { useDrawerContext } from '../../contexts';
+import { useAppThemeContext, useDrawerContext } from '../../contexts';
 
 interface IListItemLinkProps {
   to: string;
@@ -49,6 +50,7 @@ export const MenuLateral: React.FC = ({ children }) => {
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
   const { isDrawerOpen, drawerOptions, toggleDrawerOpen } = useDrawerContext();
+  const {toggleTheme} = useAppThemeContext();
 
   return (
     <>
@@ -91,6 +93,18 @@ export const MenuLateral: React.FC = ({ children }) => {
               ))}
             </List>
           </Box>
+
+          <Box>
+            <List component="nav">
+              <ListItemButton onClick={toggleTheme}>
+                <ListItemIcon>
+                  <BsFillMoonStarsFill/>
+                </ListItemIcon>
+                <ListItemText primary="Alternar tema"></ListItemText>
+              </ListItemButton>
+            </List>
+          </Box>
+
         </Box>
       </Drawer>
 
