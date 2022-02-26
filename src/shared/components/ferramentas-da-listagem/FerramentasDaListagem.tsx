@@ -4,7 +4,7 @@ import React from 'react';
 
 // import { Container } from './styles';
 
-interface IBarraDeFerramentasProps {
+interface IFerramentasDaListagemProps {
   textoDaBusca?: string;
   mostarInputBusca?: boolean;
   aoMudarTextoDeBusca?: (novoTexto: string) => void;
@@ -13,7 +13,7 @@ interface IBarraDeFerramentasProps {
   aoClicarEmNovo?: () => void;
 }
 
-export const BarraDeFerramentas: React.FC<IBarraDeFerramentasProps> = ({
+export const FerramentasDaListagem: React.FC<IFerramentasDaListagemProps> = ({
   textoDaBusca = '',
   mostarInputBusca = false,
   aoMudarTextoDeBusca,
