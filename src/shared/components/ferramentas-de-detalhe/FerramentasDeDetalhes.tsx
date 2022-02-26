@@ -1,7 +1,38 @@
 import { Box, Button, Divider, Paper,useTheme } from '@mui/material';
 import { FaPlus,FaSave,FaTrash,FaArrowLeft } from 'react-icons/fa';
 
-export const FerramentasDeDetalhe:React.FC = () =>{
+interface IFerramentasDeDetalheProps {
+textoBotaoNovo?:string;
+
+mostrarBotaoNovo?:boolean;
+mostrarBotaoVoltar?:boolean;
+mostrarBotaoApagar?:boolean;
+mostrarBotaoSalvar?:boolean;
+mostrarBotaoSalvarEFechar?:boolean;
+
+aoClicarEmNovo?: () => void;
+aoClicarEmVoltar?: () => void;
+aoClicarEmApagar?: () => void;
+aoClicarEmSalvar?: () => void;
+aoClicarEmSalvarEFechar?: () => void;
+
+}
+
+export const FerramentasDeDetalhe:React.FC<IFerramentasDeDetalheProps> = ({
+  textoBotaoNovo='Novo',
+
+  mostrarBotaoNovo = true,
+  mostrarBotaoVoltar = true,
+  mostrarBotaoApagar = true,
+  mostrarBotaoSalvar = true,
+  mostrarBotaoSalvarEFechar = false,
+
+  aoClicarEmNovo,
+  aoClicarEmVoltar,
+  aoClicarEmApagar,
+  aoClicarEmSalvar,
+  aoClicarEmSalvarEFechar,
+}) =>{
   const theme = useTheme();
   return (<Box
     height={theme.spacing(5)}
@@ -13,46 +44,67 @@ export const FerramentasDeDetalhe:React.FC = () =>{
     alignItems="center"
     component={Paper}
   >
-    <Button
-      variant="contained"
-      color="primary"
-      disableElevation
-      startIcon={<FaSave />}
-    >
-           Salvar
-    </Button>
-    <Button
-      variant="outlined"
-      color="primary"
-      disableElevation
-      startIcon={<FaSave />}
-    >
-           Salvar e voltar
-    </Button>
-    <Button
-      variant="outlined"
-      color="primary"
-      disableElevation
-      startIcon={<FaTrash />}
-    >
-           Apagar
-    </Button>
-    <Button
-      variant="outlined"
-      color="primary"
-      disableElevation
-      startIcon={<FaPlus />}
-    >
-           Novo
-    </Button>
-    <Divider variant='middle' orientation='vertical'/>
-    <Button
-      variant="outlined"
-      color="primary"
-      disableElevation
-      startIcon={<FaArrowLeft />}
-    >
+    {
+      mostrarBotaoSalvar && (    <Button
+        variant="contained"
+        color="primary"
+        disableElevation
+        onClick={aoClicarEmSalvar}
+        startIcon={<FaSave />}
+      >
+             Salvar
+      </Button>)
+    }
+    {
+      mostrarBotaoSalvarEFechar && (    <Button
+        variant="outlined"
+        color="primary"
+        disableElevation
+        onClick={aoClicarEmSalvarEFechar}
+        startIcon={<FaSave />}
+      >
+         Salvar e voltar
+      </Button>)
+    }
+    {
+      mostrarBotaoApagar && (    <Button
+        variant="outlined"
+        color="primary"
+        disableElevation
+        onClick={aoClicarEmApagar}
+        startIcon={<FaTrash />}
+      >
+             Apagar
+      </Button>)
+    }
+    {
+      mostrarBotaoNovo && (
+        <Button
+          variant="outlined"
+          color="primary"
+          disableElevation
+          onClick={aoClicarEmNovo}
+          startIcon={<FaPlus />}
+        >
+          {textoBotaoNovo}
+        </Button>
+      )
+    }
+
+    {
+      mostrarBotaoVoltar && (<>
+        <Divider variant='middle' orientation='vertical'/>
+        <Button
+          variant="outlined"
+          color="primary"
+          disableElevation
+          onClick={aoClicarEmVoltar}
+          startIcon={<FaArrowLeft />}
+        >
            Voltar
-    </Button>
+        </Button>
+      </>)
+    }
+
   </Box>);
 };
