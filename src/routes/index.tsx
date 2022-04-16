@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Home,LocationCity } from '@mui/icons-material';
+import { Home, People } from '@mui/icons-material';
 
 import { useDrawerContext } from '../shared/contexts';
 
-import { Dashboard,ListagemDeCidade } from '../pages';
+import { Dashboard, ListagemDePessoas } from '../pages';
 
 export const AppRoutes = () => {
   const { setDrawerOptions } = useDrawerContext();
@@ -17,9 +17,9 @@ export const AppRoutes = () => {
         path: '/pagina-inicial'
       },
       {
-        label: 'Cidades',
-        icon: <LocationCity />,
-        path: '/cidades'
+        label: 'Pessoas',
+        icon: <People />,
+        path: '/pessoas'
       }
     ]);
   }, []);
@@ -27,7 +27,7 @@ export const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/pagina-inicial" element={<Dashboard />} />
-      <Route path="/cidades" element={<ListagemDeCidade />} />
+      <Route path="/pessoas" element={<ListagemDePessoas />} />
       <Route path="*" element={<Navigate to="/pagina-inicial" />} />
     </Routes>
   );
