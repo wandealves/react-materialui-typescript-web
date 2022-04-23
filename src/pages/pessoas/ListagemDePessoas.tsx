@@ -7,7 +7,9 @@ import {
   TableBody,
   TableRow,
   TableCell,
-  Paper
+  Paper,
+  TableFooter,
+  LinearProgress
 } from '@mui/material';
 
 import { useDebounce } from '../../shared/hooks';
@@ -18,7 +20,9 @@ import {
   IListagemPessoa,
   PessoasService
 } from '../../shared/services/api/pessoas/PessoasService';
+import { Environment } from '../../shared/environment';
 
+//# 28
 export const ListagemDePessoas: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { debounce } = useDebounce();
@@ -86,6 +90,18 @@ export const ListagemDePessoas: React.FC = () => {
               </TableRow>
             ))}
           </TableBody>
+          {totalCount === 0 && !isLoading && (
+            <caption>{Environment.LISTAGEM_VAZIA}</caption>
+          )}
+          <TableFooter>
+            {isLoading && (
+              <TableRow>
+                <TableCell colSpan={3}>
+                  <LinearProgress variant="indeterminate" />
+                </TableCell>
+              </TableRow>
+            )}
+          </TableFooter>
         </Table>
       </TableContainer>
     </LayoutBaseDePagina>
